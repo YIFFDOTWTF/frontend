@@ -1,10 +1,9 @@
 <template>
   <div class="upload-container">
-    <h2>*notices ur yiff*</h2>
+    <h2>*notices ur bulge*</h2>
     <hr>
     <p>yiff.wtf is a hosting service for image and video media</p>
     <p>[*] uploads are limited to 30 MB</p>
-    <p>[*] check out the service <a href="https://status.yiff.wtf" style="text-decoration:none; color:#1e8449;">[status]</a></p>
     <hr>
     <p style="color:red">[!] read the <a style="text-decoration:none;" href="/faq">[faq]</a> and <a style="text-decoration:none;" href="/dmca">[dmca notice]</a> before using this service [!]</p>
     <hr>
@@ -30,6 +29,7 @@
     <h3 v-if="file"> {{ file.name }} </h3>
     <img v-if="preview && file.type.match(/image\/.+/)" class="preview" :src="preview.data">
     <pre v-if="preview && preview.type === 'text'" class="preview">{{ preview.data }}</pre>
+    <div class="footer"><p><a href="https://status.yiff.wtf" style="text-decoration:none; color:#1e8449;">[status]</a> - <a href="https://github.com/YIFFDOTWTF" style="text-decoration:none; color:#1e8449;">[source]</a></p></div>
   </div>
 </template>
 
@@ -147,6 +147,14 @@ export default {
 </script>
 
 <style scoped>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
 .upload-container {
   min-width: 40%;
   max-width: 40em;
