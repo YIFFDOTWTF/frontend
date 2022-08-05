@@ -13,6 +13,7 @@ try {
   APP_GIT_DATE = commit.committer.date
 } catch (_) {
   APP_GIT_HASH = 'unk'
+  APP_GIT_HASH_FULL = 'unk'
   APP_GIT_DATE = Date.now()
 }
 

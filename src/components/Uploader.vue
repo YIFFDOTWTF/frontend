@@ -36,7 +36,6 @@
 <script>
 export default {
   data () {
-    console.log(COMMIT_HASH)
     return {
       file: undefined,
       preview: null,
