@@ -25,7 +25,7 @@ module.exports = {
       'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
     },
     'globals': {
-      "COMMIT_HASH": "reaonly",
+      "COMMIT_HASH": "readonly",
       "COMMIT_DATE": "readonly",
       "COMMIT_HASH_FULL": "readonly"
     }
