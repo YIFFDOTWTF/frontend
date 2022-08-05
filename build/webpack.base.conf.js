@@ -4,6 +4,18 @@ var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var eslintFriendlyFormatter = require('eslint-friendly-formatter')
 
+const LCL = require('last-commit-log')
+try {
+  const lcl = new LCL()
+  const commit = lcl.getLastCommitSync()
+  APP_GIT_HASH = commit.shortHash
+  APP_GIT_HASH_FULL = commit.hash
+  APP_GIT_DATE = commit.committer.date
+} catch (_) {
+  APP_GIT_HASH = 'unk'
+  APP_GIT_DATE = Date.now()
+}
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }

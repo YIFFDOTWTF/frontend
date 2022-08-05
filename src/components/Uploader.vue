@@ -29,13 +29,14 @@
     <h3 v-if="file"> {{ file.name }} </h3>
     <img v-if="preview && file.type.match(/image\/.+/)" class="preview" :src="preview.data">
     <pre v-if="preview && preview.type === 'text'" class="preview">{{ preview.data }}</pre>
-    <div class="footer"><p><a href="https://status.yiff.wtf" style="text-decoration:none; color:#1e8449;">[status]</a> - <a href="https://github.com/YIFFDOTWTF" style="text-decoration:none; color:#1e8449;">[source]</a></p></div>
+    <div class="footer"><p><a href="https://status.yiff.wtf" style="text-decoration:none; color:#1e8449;">[status]</a> - <a href="https://github.com/YIFFDOTWTF" style="text-decoration:none; color:#1e8449;">[source]</a> - <a style="text-decoration:none; color:#1e8449;" :href="`https://github.com/YIFFDOTWTF/frontend/commit/${fullHash}`">[{{ commitHash }} - {{ commitDate }}]</a></p></div>
   </div>
 </template>
 
 <script>
 export default {
   data () {
+    console.log(COMMIT_HASH)
     return {
       file: undefined,
       preview: null,
@@ -43,7 +44,10 @@ export default {
       loadingPercent: 0,
       loading: false,
       uploaded: true,
-      error: ''
+      error: '',
+      fullHash: COMMIT_HASH_FULL,
+      commitHash: COMMIT_HASH,
+      commitDate: new Date(+(COMMIT_DATE || 0) * 1000).toLocaleTimeString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})
     }
   },
   methods: {
