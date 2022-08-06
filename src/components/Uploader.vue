@@ -29,7 +29,7 @@
     <h3 v-if="file"> {{ file.name }} </h3>
     <img v-if="preview && file.type.match(/image\/.+/)" class="preview" :src="preview.data">
     <pre v-if="preview && preview.type === 'text'" class="preview">{{ preview.data }}</pre>
-    <div class="footer"><p><a href="https://status.yiff.wtf" style="text-decoration:none; color:#1e8449;">[status]</a> - <a href="https://github.com/YIFFDOTWTF" style="text-decoration:none; color:#1e8449;">[source]</a> - <a style="text-decoration:none; color:#1e8449;" :href="`https://github.com/YIFFDOTWTF/frontend/commit/${fullHash}`">[{{ commitHash }} - {{ commitDate }}]</a></p></div>
+    <div class="footer"><p><a href="/canary.json" style="text-decoration:none; color:#d32f2f;">[canary]</a> - <a href="https://status.yiff.wtf" style="text-decoration:none; color:#1e8449;">[status]</a> - <a href="https://github.com/YIFFDOTWTF" style="text-decoration:none; color:#1e8449;">[source]</a> - <a style="text-decoration:none; color:#1e8449;" :href="`https://github.com/YIFFDOTWTF/frontend/commit/${fullHash}`">[{{ commitHash }} - {{ commitDate }}]</a></p></div>
   </div>
 </template>
 
