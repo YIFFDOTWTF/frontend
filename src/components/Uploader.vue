@@ -5,7 +5,7 @@
     <p>yiff.wtf is a hosting service for image and video media</p>
     <p>[*] uploads are limited to 30 MB</p>
     <hr>
-    <p style="color:red">[!] read the <a style="text-decoration:none;" href="/faq">[faq]</a> and <a style="text-decoration:none;" href="/dmca">[dmca notice]</a> before using this service [!]</p>
+    <p style="color:red">[!] read the <a style="text-decoration:none;" href="/faq">[faq]</a> and <a style="text-decoration:none;" href="/dmca">[dmca notice]</a> before using this service</p>
     <hr>
     <p>select a file you wish to upload by pressing the button below this message!</p>
     <hr>
