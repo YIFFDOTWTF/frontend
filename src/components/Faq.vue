@@ -19,7 +19,7 @@
       <h2>general</h2>
       <p>[*] privacy?</p>
       <ul style="color:#1e8449;">- we do not use cookies</ul>
-      <ul style="color:#1e8449;">- your IP is anonymized the moment it written to the logs handled by our servers, we do not store any identifying information</ul>
+      <ul style="color:#1e8449;">- your IP is anonymized the moment it is written to the logs handled by our servers, we do not store any identifying information</ul>
       <h2>security</h2>
       <p>
         <p>[*] what about DMCA requests?</p>
