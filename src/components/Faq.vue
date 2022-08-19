@@ -11,18 +11,19 @@
         <!-- 2 -->
         <p>
           <p>[*] you are not allowed to use yiff.wtf/i.yiff.wtf for services such as a CDN, file host for your own site, or as a source for videos that are streamed from sites besides yiff.wtf/i.yiff.wtf directly</p>
-          <ul><p style="color:red">- should you violate any of the rules above; the content you have uploaded will be removed and your IP will be permanently banned from uploading further content</p></ul>
+          <ul><p style="color:red">- should you violate any of the rules above the content you have uploaded will be removed and your IP will be permanently banned from uploading further content</p></ul>
           <ul><p style="color:red">- the list of banned content is non-exhaustive, and may change in the future</p></ul>
         </p>
         <!-- 3 -->
       <!-- end -->
       <h2>general</h2>
-      <p>[*] following information is stored by <b>yiff.wtf</b> when you use the site to upload media:</p>
-      <ul style="color:#1e8449;">- your IP is stored for 24 hours following an upload, this is <a href="https://publicpolicy.googleblog.com/2008/02/are-ip-addresses-personal.html" style="text-decoration:none;">[not a big deal]</a></ul>
+      <p>[*] privacy?</p>
+      <ul style="color:#1e8449;">- we do not use cookies</ul>
+      <ul style="color:#1e8449;">- your IP is anonymized the moment it written to the logs handled by our servers, we do not store any identifying information</ul>
       <h2>security</h2>
       <p>
         <p>[*] what about DMCA requests?</p>
-        <ul style="color:#1e8449;">- if the DMCA request is legitimate; the file in question will be deleted</ul>
+        <ul style="color:#1e8449;">- if the DMCA request is legitimate the file in question will be deleted</ul>
       </p>
   </div>
 </template>
