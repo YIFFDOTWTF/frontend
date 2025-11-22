@@ -26,22 +26,11 @@
       />
       <label for="file-picker" class="btn-choose">choose file</label>
 
-      <button
-        class="btn-upload"
-        :disabled="!file || uploading"
-        @click="startUpload"
-      >
+      <button class="btn-upload" v-if="file && !uploaded" @click="startUpload">
         {{ uploading ? "uploading…" : "upload" }}
       </button>
 
-      <button
-        v-if="file"
-        class="btn-remove"
-        :disabled="uploading"
-        @click="clearFile"
-      >
-        remove
-      </button>
+      <!-- remove button moved below preview -->
     </div>
 
     <div class="meta" v-if="file">
@@ -53,15 +42,80 @@
       </div>
 
       <div class="preview">
-        <img v-if="isImage" :src="preview" alt="preview" class="preview-img" />
-        <video
+        <!-- small inline thumbnail / trigger -->
+        <div
+          v-if="isImage"
+          class="preview-thumb"
+          @click="openOverlay"
+          role="button"
+          tabindex="0"
+        >
+          <img :src="preview" alt="preview" class="preview-img" />
+        </div>
+
+        <div
           v-else-if="isVideo"
-          :src="preview"
-          controls
-          class="preview-video"
-        ></video>
+          class="preview-thumb"
+          @click="openOverlay"
+          role="button"
+          tabindex="0"
+        >
+          <!-- small video variant used as a clickable preview; the full-sized player is in the overlay -->
+          <video
+            :src="preview"
+            class="preview-video-small"
+            muted
+            playsinline
+          ></video>
+        </div>
+
         <pre v-else-if="isText" class="preview-text">{{ previewText }}</pre>
         <div v-else class="muted">no preview available</div>
+      </div>
+
+      <!-- Overlay for image/video preview -->
+      <div
+        v-if="overlayVisible"
+        class="overlay"
+        @click="onOverlayBackgroundClick"
+      >
+        <div class="overlay-content" @click.stop>
+          <img
+            v-if="isImage"
+            :src="preview"
+            alt="preview"
+            class="overlay-media overlay-image"
+          />
+          <video
+            v-else-if="isVideo"
+            :src="preview"
+            controls
+            class="overlay-media overlay-video"
+          ></video>
+
+          <div class="overlay-actions">
+            <button
+              class="btn-upload"
+              :disabled="!file || uploading"
+              @click.stop="startUpload"
+            >
+              {{ uploading ? "uploading…" : "upload" }}
+            </button>
+            <button
+              class="btn-cancel"
+              :disabled="uploading"
+              @click.stop="clearFile"
+            >
+              cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta-actions" v-if="file">
+        <button class="btn-remove" :disabled="uploading" @click="clearFile">
+          remove
+        </button>
       </div>
     </div>
 
@@ -127,6 +181,7 @@ export default {
       preview: "",
       previewText: "",
       url: "",
+      overlayVisible: false,
       uploading: false,
       progressPercent: 0,
       error: "",
@@ -186,6 +241,13 @@ export default {
       this.url = "";
       this.progressPercent = 0;
       this.readPreview(file);
+      // auto-open overlay for images / videos so the user immediately sees the large preview
+      if (
+        file.type &&
+        (file.type.startsWith("image/") || file.type.startsWith("video/"))
+      ) {
+        this.overlayVisible = true;
+      }
     },
     readPreview(file) {
       this.preview = "";
@@ -215,7 +277,21 @@ export default {
         this.preview = "";
       }
     },
+    openOverlay() {
+      this.overlayVisible = true;
+    },
+    closeOverlay() {
+      this.overlayVisible = false;
+    },
+    onOverlayBackgroundClick(ev) {
+      // Background clicks should close the overlay; clicks inside content are stopped.
+      this.closeOverlay();
+    },
     startUpload() {
+      // close the overlay immediately so the upload progress is visible to the user
+      if (this.overlayVisible) {
+        this.closeOverlay();
+      }
       if (!this.file) {
         this.error = "choose a file first";
         return;
@@ -279,6 +355,8 @@ export default {
     clearFile() {
       if (this.uploading) return;
       this.file = null;
+      // ensure overlay is closed when clearing the file (same behavior as remove)
+      this.overlayVisible = false;
       if (
         this.preview &&
         typeof this.preview === "string" &&
@@ -371,9 +449,11 @@ hr {
 
 .controls {
   display: flex;
-  gap: 0.5rem;
+  flex-direction: row;
+  gap: 0.75rem;
   align-items: center;
   margin: 0.75rem 0;
+  flex-wrap: wrap;
 }
 
 .hidden {
@@ -384,28 +464,60 @@ hr {
   display: inline-block;
   background: #2d7eff;
   color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
+  padding: 10px 14px;
+  border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .btn-upload {
+  display: inline-block;
   background: #1e8e3e;
   color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
+  padding: 10px 14px;
+  border-radius: 6px;
   cursor: pointer;
   border: none;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-.btn-remove,
 .btn-retry {
+  display: block;
+  width: 100%;
   background: transparent;
   color: #bfe3ff;
   border: 1px solid rgba(191, 227, 255, 0.08);
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Style the remove button like the choose-file button but red */
+.btn-remove {
+  display: block;
+  width: 100%;
+  background: #d32f2f;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+  border: none;
+}
+
+/* cancel button: visually prominent and red */
+.btn-cancel {
+  background: #d32f2f;
+  color: #ffffff;
+  border: none;
   padding: 6px 8px;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .meta-row {
@@ -413,16 +525,45 @@ hr {
   color: #9fb0c8;
 }
 
+/* Inline preview area: make a compact clickable thumbnail for images and videos */
 .preview {
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.preview-img,
-.preview-video {
-  max-width: 70%;
-  max-height: 15rem;
+/* Thumbnail container used for the small inline preview that opens the overlay */
+.preview-thumb {
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  max-width: 40%;
+  max-height: 12rem;
+  width: auto;
+}
+
+/* Scaled-down inline video (thumbnail) — compact and visually lighter than overlay player */
+.preview-video-small {
+  width: 100%;
+  height: 100%;
+  max-height: 12rem;
   display: block;
-  margin: 0.5rem 0;
+  object-fit: cover;
+  background: #000;
+}
+
+/* Scaled-down inline image */
+.preview-img {
+  width: 100%;
+  height: 100%;
+  max-height: 12rem;
+  display: block;
+  object-fit: cover;
 }
 
 .preview-text {
@@ -434,6 +575,58 @@ hr {
   overflow: auto;
 }
 
+/* overlay styles */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 1.25rem;
+}
+.overlay-content {
+  max-width: 95%;
+  max-height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.overlay-media {
+  border-radius: 8px;
+  max-width: 100%;
+  max-height: 80vh;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  background: #000;
+}
+.overlay-video {
+  width: auto;
+  height: auto;
+  max-height: 80vh;
+}
+.overlay-image {
+  width: auto;
+  height: auto;
+  max-height: 80vh;
+}
+.overlay-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  width: 100%;
+}
+.overlay-actions > button {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 10px 12px;
+  /* ensure visual parity with overlay width */
+  border-radius: 6px;
+}
+
+/* maintain progress styling after overlay rules */
 .progress {
   margin-top: 0.75rem;
 }
