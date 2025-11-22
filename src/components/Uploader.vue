@@ -3,7 +3,10 @@
     <h2>*notices ur bulge*</h2>
     <hr />
     <p>yiff.wtf is a hosting service for image and video media</p>
-    <p>[*] individual upload size is limited to 100 MB</p>
+    <p>
+      [*] individual upload size is limited to
+      <span style="color: #1e8449"><100 MB></span>
+    </p>
     <hr />
 
     <p style="color: red">
