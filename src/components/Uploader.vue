@@ -3,7 +3,7 @@
     <h2>*notices ur bulge*</h2>
     <hr />
     <p>yiff.wtf is a hosting service for image and video media</p>
-    <p>[*] individual upload size is limited to 250MB</p>
+    <p>[*] individual upload size is limited to 100 MB</p>
     <hr />
 
     <p style="color: red">
@@ -33,7 +33,7 @@
       <div class="meta-row">
         <span class="muted">{{ prettySize(file.size) }}</span>
         <span class="muted">• {{ file.type || "unknown" }}</span>
-        <span class="muted">• {{ Math.round(sizePercent) }}% of 30 MB</span>
+        <span class="muted">• {{ Math.round(sizePercent) }}% of 100 MB</span>
       </div>
 
       <div class="preview">
@@ -163,7 +163,7 @@
 </template>
 
 <script>
-const MAX_BYTES = 30 * 1024 * 1024;
+const MAX_BYTES = 100 * 1024 * 1024;
 
 export default {
   name: "Uploader",
@@ -224,7 +224,8 @@ export default {
       this.clearError();
       if (!file) return;
       if (file.size > MAX_BYTES) {
-        this.error = "file exceeds 30 MB limit";
+        this.error =
+          "that's way too big, even for me owo~. size limit is 100 MB";
         this.file = null;
         return;
       }
@@ -232,7 +233,7 @@ export default {
       this.url = "";
       this.progressPercent = 0;
       this.readPreview(file);
-      
+
       if (
         file.type &&
         (file.type.startsWith("image/") || file.type.startsWith("video/"))
