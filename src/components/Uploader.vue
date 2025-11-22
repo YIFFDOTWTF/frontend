@@ -1,17 +1,14 @@
 <template>
   <div class="uploader-container">
-    <h2>upload</h2>
+    <h2>*notices ur bulge*</h2>
     <hr />
-    <p>
-      yiff.wtf is a small hosting service for images and videos. No registration
-      required.
-    </p>
-    <p>uploads are limited to 30 MB</p>
+    <p>yiff.wtf is a hosting service for image and video media</p>
+    <p>[*] individual upload size is limited to 250MB</p>
     <hr />
 
     <p style="color: red">
-      [!] read the <a href="/faq" style="text-decoration: none">faq</a> and
-      <a href="/dmca" style="text-decoration: none">dmca notice</a> before
+      [!] read the <a href="/faq" style="text-decoration: none">[faq]</a> and
+      <a href="/dmca" style="text-decoration: none">[dmca notice]</a> before
       uploading
     </p>
     <hr />
@@ -461,11 +458,12 @@ hr {
 }
 
 .btn-choose {
-  display: inline-block;
+  display: block;
+  width: 100%;
   background: #2d7eff;
   color: white;
   padding: 10px 14px;
-  border-radius: 6px;
+  border-radius: 0px;
   cursor: pointer;
   text-decoration: none;
   text-align: center;
@@ -473,11 +471,12 @@ hr {
 }
 
 .btn-upload {
-  display: inline-block;
+  display: block;
+  width: 100%;
   background: #1e8e3e;
   color: white;
   padding: 10px 14px;
-  border-radius: 6px;
+  border-radius: 0px;
   cursor: pointer;
   border: none;
   text-align: center;
@@ -491,7 +490,7 @@ hr {
   color: #bfe3ff;
   border: 1px solid rgba(191, 227, 255, 0.08);
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 0px;
   text-align: center;
   box-sizing: border-box;
 }
@@ -503,7 +502,7 @@ hr {
   background: #d32f2f;
   color: #ffffff;
   padding: 10px 14px;
-  border-radius: 6px;
+  border-radius: 0px;
   cursor: pointer;
   text-align: center;
   box-sizing: border-box;
@@ -516,7 +515,7 @@ hr {
   color: #ffffff;
   border: none;
   padding: 6px 8px;
-  border-radius: 4px;
+  border-radius: 0px;
   cursor: pointer;
 }
 
@@ -525,7 +524,6 @@ hr {
   color: #9fb0c8;
 }
 
-/* Inline preview area: make a compact clickable thumbnail for images and videos */
 .preview {
   margin-top: 0.75rem;
   display: flex;
@@ -534,7 +532,6 @@ hr {
   gap: 0.75rem;
 }
 
-/* Thumbnail container used for the small inline preview that opens the overlay */
 .preview-thumb {
   cursor: pointer;
   display: inline-block;
@@ -547,7 +544,6 @@ hr {
   width: auto;
 }
 
-/* Scaled-down inline video (thumbnail) — compact and visually lighter than overlay player */
 .preview-video-small {
   width: 100%;
   height: 100%;
@@ -557,7 +553,6 @@ hr {
   background: #000;
 }
 
-/* Scaled-down inline image */
 .preview-img {
   width: 100%;
   height: 100%;
@@ -575,7 +570,6 @@ hr {
   overflow: auto;
 }
 
-/* overlay styles */
 .overlay {
   position: fixed;
   inset: 0;
@@ -622,11 +616,9 @@ hr {
   flex: 1 1 0;
   min-width: 0;
   padding: 10px 12px;
-  /* ensure visual parity with overlay width */
-  border-radius: 6px;
+  border-radius: 0px;
 }
 
-/* maintain progress styling after overlay rules */
 .progress {
   margin-top: 0.75rem;
 }
@@ -659,7 +651,7 @@ hr {
   background: #1e8e3e;
   color: white;
   padding: 6px 10px;
-  border-radius: 4px;
+  border-radius: 0px;
   border: none;
   cursor: pointer;
 }

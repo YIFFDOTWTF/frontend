@@ -7,13 +7,13 @@
 
 <script>
 export default {
-  name: 'app',
+  name: "app",
   methods: {
-    root () {
-      this.$router.push('/')
-    }
-  }
-}
+    root() {
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 
 <style>
@@ -43,8 +43,37 @@ h1 {
   margin-bottom: 10px;
   font-family: sans-serif;
   font-size: 8rem;
-  background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+  /* animated rainbow gradient */
+  background: linear-gradient(
+    90deg,
+    #ef5350,
+    #f48fb1,
+    #7e57c2,
+    #2196f3,
+    #26c6da,
+    #43a047,
+    #eeff41,
+    #f9a825,
+    #ff5722
+  );
+  background-size: 200% 100%;
+  background-clip: text;
   -webkit-background-clip: text;
+  color: transparent;
   -webkit-text-fill-color: transparent;
+  animation: rainbow 6s linear infinite;
+}
+
+/* animate the gradient so the colors appear to flow */
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 </style>
