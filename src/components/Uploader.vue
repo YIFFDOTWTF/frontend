@@ -37,7 +37,6 @@
       </div>
 
       <div class="preview">
-        <!-- small inline thumbnail / trigger -->
         <div
           v-if="isImage"
           class="preview-thumb"
@@ -55,7 +54,6 @@
           role="button"
           tabindex="0"
         >
-          <!-- small video variant used as a clickable preview; the full-sized player is in the overlay -->
           <video
             :src="preview"
             class="preview-video-small"
@@ -68,7 +66,6 @@
         <div v-else class="muted">no preview available</div>
       </div>
 
-      <!-- Overlay for image/video preview -->
       <div
         v-if="overlayVisible"
         class="overlay"
@@ -214,7 +211,6 @@ export default {
         bytes /= thresh;
         ++u;
       } while (Math.abs(bytes) >= thresh && u < units.length - 1);
-      // show one decimal for values < 10, otherwise no decimals
       const precision = Math.abs(bytes) < 10 ? 1 : 0;
       return bytes.toFixed(precision) + " " + units[u];
     },
@@ -236,7 +232,7 @@ export default {
       this.url = "";
       this.progressPercent = 0;
       this.readPreview(file);
-      // auto-open overlay for images / videos so the user immediately sees the large preview
+      
       if (
         file.type &&
         (file.type.startsWith("image/") || file.type.startsWith("video/"))
@@ -268,7 +264,6 @@ export default {
           reader.readAsText(file);
         }
       } catch (err) {
-        // ignore preview errors
         this.preview = "";
       }
     },
@@ -279,11 +274,9 @@ export default {
       this.overlayVisible = false;
     },
     onOverlayBackgroundClick(ev) {
-      // Background clicks should close the overlay; clicks inside content are stopped.
       this.closeOverlay();
     },
     startUpload() {
-      // close the overlay immediately so the upload progress is visible to the user
       if (this.overlayVisible) {
         this.closeOverlay();
       }
@@ -298,7 +291,6 @@ export default {
       this.upload();
     },
     upload() {
-      // simple XHR upload, mirrors original behavior
       const toSend = this.file;
       const endpoint = "https://i.yiff.wtf/upload?password=lul";
       const form = new FormData();
@@ -344,13 +336,12 @@ export default {
           }
         }
       } catch (err) {
-        // silent
+        // swallowed
       }
     },
     clearFile() {
       if (this.uploading) return;
       this.file = null;
-      // ensure overlay is closed when clearing the file (same behavior as remove)
       this.overlayVisible = false;
       if (
         this.preview &&
@@ -385,7 +376,7 @@ export default {
           this.prepareFile(blob);
         }
       } catch (err) {
-        // ignore
+        // swallowed
       }
     },
     onDrop(ev) {
@@ -493,7 +484,6 @@ hr {
   box-sizing: border-box;
 }
 
-/* Style the remove button like the choose-file button but red */
 .btn-remove {
   display: block;
   width: 100%;
@@ -507,7 +497,6 @@ hr {
   border: none;
 }
 
-/* cancel button: visually prominent and red */
 .btn-cancel {
   background: #d32f2f;
   color: #ffffff;
