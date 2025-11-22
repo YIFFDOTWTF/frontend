@@ -26,8 +26,6 @@
       <button class="btn-upload" v-if="file && !uploaded" @click="startUpload">
         {{ uploading ? "uploading…" : "upload" }}
       </button>
-
-      <!-- remove button moved below preview -->
     </div>
 
     <div class="meta" v-if="file">
